@@ -41,13 +41,15 @@ class AlienInvasion:
         # Start Alien Invasion in an inactive state. 
         self.game_active = False
         
-        #Making the play button
-        self.play_button = Button(self, "Play")
+       
 
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
+        
+         #Making the play button
+        self.play_button = Button(self, "Play")
         # Create an instance to store game statistics,
         #   and create a scoreboard.
         self.stats = GameStats(self)
