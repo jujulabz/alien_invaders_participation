@@ -142,7 +142,7 @@ class AlienInvasion:
     
             # Reset the game statistics.
             self.stats.reset_stats()
-            self.game_active = True
+            self.sb.prep_score()
 
             # Get rid of any remaining bullets and aliens.
             self.bullets.empty()
@@ -291,15 +291,15 @@ class AlienInvasion:
                 break
 #Milestone 2
     def _check_bullet_alien_collisions(self):
-        """Check for collisions between bullets and aliens.
-        
-        Remove any bullets and aliens that have collided.
-        """
-        # Check for any bullets that have hit aliens.
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        """Respond to bullet-alien collisions."""
+        # Remove any bullets and aliens that have collided.
+        collisions = pygame.sprite.groupcollide(
+                self.bullets, self.aliens, True, True)
+
         if collisions:
-            print(f"Aliens destroyed: {len(collisions)}")
-        if not self.aliens:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
